@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--创建 shiro -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!--配置 securityManager 对象-->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 登陆页的URL -->
+        <property name="loginUrl" value="login.html"/>
+        <!-- 未认证的跳转URK -->
+        <property name="unauthorizedUrl" value="403.html"/>
+        <!--过滤器链-->
+        <property name="filterChainDefinitions">
+            <!-- anon 不需要验证、authc需要认证 -->
+            <!-- 过滤器链 按照从上到下的规则 -->
+            <value>
+                /login.html = anon
+                /sublogin = anon
+                /sublogin1 = anon
+                /* = authc
+            </value>
+        </property>
+    </bean>
+    <!-- 创建 SecurityManager 对象-->
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="realm"/>
+    </bean>
+    <!--自定义Realm-->
+    <bean id="realm" class="com.oukele.shiroweb.realm.CustomRealm">
+        <!-- 配置 加密管理 -->
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+    </bean>
+    <!-- shiro 加密管理对象 -->
+    <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="credentialsMatcher">
+        <!-- 设置 加密的算法为 md5 -->
+        <property name="hashAlgorithmName" value="md5"/>
+        <!--设置 加密的次数 为 1 次 -->
+        <property name="hashIterations" value="1"/>
+    </bean>
+
+</beans>
