@@ -84,27 +84,24 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
 
 - pom.xml 添加依赖
 
-  - ```xml
-    <dependency>
-       <groupId>org.springframework</groupId>
-       <artifactId>spring-context</artifactId>
-       <version>5.1.3.RELEASE</version>
-     </dependency>
-      
-     <dependency>
-       <groupId>org.springframework</groupId>
-       <artifactId>spring-webmvc</artifactId>
-       <version>5.1.3.RELEASE</version>
-     </dependency>
-      
-     <dependency>
-       <groupId>org.apache.shiro</groupId>
-       <artifactId>shiro-core</artifactId>
-       <version>1.4.0</version>
-     </dependency>
-    ```
-
-  ```
+  ```xml
+  <dependency>
+     <groupId>org.springframework</groupId>
+     <artifactId>spring-context</artifactId>
+     <version>5.1.3.RELEASE</version>
+   </dependency>
+    
+   <dependency>
+     <groupId>org.springframework</groupId>
+     <artifactId>spring-webmvc</artifactId>
+     <version>5.1.3.RELEASE</version>
+   </dependency>
+    
+   <dependency>
+     <groupId>org.apache.shiro</groupId>
+     <artifactId>shiro-core</artifactId>
+     <version>1.4.0</version>
+   </dependency>
   <dependency>
       <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-spring</artifactId>
@@ -116,10 +113,6 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
       <artifactId>shiro-web</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
-  ```
-
-  ```
-  
   ```
 
 - resources目录中，新建spring-root.xml 与 springmvc.xml 配置文件
@@ -427,4 +420,5 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
   - 此外ShiroFilter的bean标签里面，还可以规定loginurl的值，即登录的页面，unauthor..登录失败没权限访问的页面，filterChainDefinitions过滤链，（过滤链里面可以以a=b的形式进行过滤，例：/login.html = anon 表示在访问login.html页面的时候不需要任何权限，anon表示无需权限，authc代表必须认证通过才能访问，一般链是从上往下匹配，只要匹配的相应结果，则直接返回。所以一般把/*=authc放在最后。）
 
 - 之后基本上就是写入controller以及html网页即可。之后启动tomcat自动访问，其中关于编码的问题需要在@RequestMapping中设置produces="application/json;charset=utf-8"的形式即可。
+
 
