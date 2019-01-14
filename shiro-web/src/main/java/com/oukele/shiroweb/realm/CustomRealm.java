@@ -23,7 +23,8 @@ public class CustomRealm extends AuthorizingRealm {
         userMap.put("Mark","123456");
         // 设置 realm 名称
         super.setName("customRealm");
-        userMap.put("oukele","123456");
+         // 密码 123456 经过 MD5 加密一次
+        userMap.put("oukele", "4ed40bd548567831b876b9dd444a3525");
     }
 
     /*
@@ -85,6 +86,8 @@ public class CustomRealm extends AuthorizingRealm {
         }
         // 认证信息
         SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName,password,"customRealm");
+        // 设置加密的 盐（用户）
+        authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(userName));
         // 返回认证信息
         return authenticationInfo;
     }
