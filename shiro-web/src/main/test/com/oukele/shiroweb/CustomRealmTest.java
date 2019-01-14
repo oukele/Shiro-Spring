@@ -37,6 +37,10 @@ public class CustomRealmTest {
         subject.checkRole("admin");
 
         subject.checkPermissions("user:add","user:delete");
+        
+          //  密码 + 盐
+        Md5Hash md5 = new Md5Hash("123456","oukele");
+        System.out.println(md5.toString());
 
     }
 }
