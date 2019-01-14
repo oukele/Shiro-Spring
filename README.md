@@ -212,7 +212,8 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
           userMap.put("Mark","123456");
           // 设置 realm 名称
           super.setName("customRealm");
-          userMap.put("oukele","123456");
+          // 密码 为 123456 （经过 MD5 加密一次）
+          userMap.put("oukele","4ed40bd548567831b876b9dd444a3525");
       }
   
       /*
