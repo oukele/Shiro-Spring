@@ -109,9 +109,9 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
     </dependency>
     
     <dependency>
-      <groupId>com.oukele</groupId>
+      <groupId>org.apache.shiro</groupId>
       <artifactId>shiro-web</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>1.3.2</version>
     </dependency>
   ```
 
@@ -154,7 +154,7 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
             <!-- 配置 加密管理 -->
             <property name="credentialsMatcher" ref="credentialsMatcher"/>
         </bean>
-        <!-- shiro 加密管理对象 -->
+        <!-- shiro 加密管理对象 （数据库存储的是 加密后的 密码 ） -->
         <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher" id="credentialsMatcher">
             <!-- 设置 加密的算法为 md5 -->
             <property name="hashAlgorithmName" value="md5"/>
@@ -274,6 +274,8 @@ Remember Me ： 记住我，这个是非常 常见的功能，即一次登录后
           }
           // 认证信息
           SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(userName,password,"customRealm");
+          // 设置加密的 盐（用户）
+          authenticationInfo.setCredentialsSalt(ByteSource.Util.bytes(userName));
           // 返回认证信息
           return authenticationInfo;
       }
